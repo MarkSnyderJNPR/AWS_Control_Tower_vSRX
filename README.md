@@ -47,8 +47,11 @@
 ##### Methodology and workflow
 >The workflow intent is for the initial configuration for the Parent Security Infrasture VPC to deployed once, and the child Organizational units several times where the child organizational units proccess are all automated.
 
-Deployment, Setup and Installation
+![](./img/WorkFlow.png)
 
-Related and Suporting links
-
-Current and known issues
+##### Deployment, Setup and Installation
+>> WIP
+##### Related and Suporting links
+>> WIP
+##### Current and known issues
+>> WIP
