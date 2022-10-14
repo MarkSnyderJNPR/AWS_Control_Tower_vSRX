@@ -45,7 +45,7 @@
 >>> IPv4 only
 
 ##### Methodology and workflow
-The workflow intent is for the initial configuration for the Parent Security Infrasture VPC to deployed once, and the child Organizational units several times where the child organizational units proccess are all automated.
+>The workflow intent is for the initial configuration for the Parent Security Infrasture VPC to deployed once, and the child Organizational units several times where the child organizational units proccess are all automated.
 
 Deployment, Setup and Installation
 
