@@ -1,5 +1,8 @@
-# AWS Control Tower CloudFormation Template for remote VPC infrastructure rsst1.json.
-#  Mark Snyder   msnyder@juniper.net
+###################################################################################
+###############   Written by Mark Snyder  Juniper Networks       ##################
+###############   msnyder@juniper.net                            ##################
+###################################################################################
+
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {

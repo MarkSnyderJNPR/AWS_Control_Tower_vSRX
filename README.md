@@ -50,8 +50,76 @@
 ![](./img/WorkFlow.png)
 
 ##### Deployment, Setup and Installation
->> WIP
+>> ##### Compononets Used
+>> Juniper Networks vSRX from the AWS Market Place, AWS Control Tower, Organizations. Clouformation, Lambda, EventBridge, Systems Prarmeter Store, S3 and Resource Access Maanger are used for this solution.  AWS Control Tower AccountFactory or Organization can be used for creaating Accounts and for Organizations.
+
+>> ##### Market Place Subscriptions
+>> An AWS Market Place subscription for the Juniper vSRX is required for this sollution. Both BYOL, or PAYG will be  needed. It is recomended to use the latest vSRX version.
+
+>> ##### Prerequisit setup and settings
+>> AWS Control Tower must have been previously deployed with the AWS IAM roles, Control Tower and CloudFormation, Excucution and adminstration must be deployed for all Organizations manged by Control Tower.  [https://docs.aws.amazon.com/controltower/latest/userguide/deployment.html]()
+
+>> S3 - Simple Storage Service
+>>> An S3 bucket must be created for the storing of Cloud Formation Templates. AWS Lambda will refer to these scripts for deployment.
+
+>> IAM - Identity and Access Management
+>>> An IAM role for lambda will need to be created. The lambda role will need to have access to the S3 bucket were CloudFormation templates are stored and the ability to deploy cloudformation templates.
+>>> This solution, addtionaly creates an IAM role in each child Organization account. This role is created for the deletetion of the default VPC and Internet Gateway and all the dependancies. This role can be deleted after the child OU is creaated. However, can be used for later adminstration uses and fine tunning.
+
+>> Lambda - functions
+>>> Two lambda functions need to be created. One for Organization registrataions, and another for account move and regitrastion.
+>>> The Organization Lambda function, lambda_main.py, is responsible for the core infrastucture and all address management for child organizational units. This lambda function must be called by the Organization registration EventBridge. It should be noted that Organization unit can either be created with Control Tower or within Organizations and then registered in Control Tower.
+>>> The second Lambda script, ddvpc_function.py, is responsible for the deletion on the default VPC and Internet Gateway. This function is called from one of two EventBridge ruels. Either when a new account is created in Account Factory, or if the accountis created in organizations and the account is moved.
+>>>> #### Extreme caution
+>>>> Extreme caution needs to be practiced for ddvpc_function.py and when it is called. Currenty, there are NO checks for "if" the account being moved, is in an account that is within a child organizational unit under the Security Infrastuture VPC.  This check is planed for future releases. There are currently no tags in organizans to check and needs coding to determine, parent Organization, child Organizational Unit, and "managed" account relationships...
+
+>>>Lambda functions must ensure all timeouts are at least 10 minutes or scipts "may" fail to complete.
+
+>> EventBridge
+>>> Three EventBridge rules need to be created. Each rule trigers lambda functions specific to organizational unit registration in Control Tower, AWS Account creation within Account Factory, or an accoun that was created within Organizations, and moved into a child Organizational Unit.  It should be noted, that technically this account is not "really" managed by Control Tower.
+
+>>>  EventBridge Organizational Unit Registration triger
+```
+{
+  "source": ["aws.controltower"],
+  "detail-type": ["AWS Service Event via CloudTrail"],
+  "detail": {
+    "eventName": ["RegisterOrganizationalUnit"]
+  }
+}
+```
+>>> EventBridge Organization account created and moved triger
+```
+{
+  "source": ["aws.organizations"],
+  "detail-type": ["AWS API Call via CloudTrail"],
+  "detail": {
+    "eventSource": ["organizations.amazonaws.com"],
+    "eventName": ["MoveAccount"]
+  }
+}
+```
+>>> EventBridge Account Factory / Control Tower account creaton
+```
+{
+  "source": ["aws.controltower"],
+  "detail-type": ["AWS Service Event via CloudTrail"],
+  "detail": {
+    "eventName": ["CreateManagedAccount"]
+  }
+}
+```
+
+>>>Currently, it is recomended that the EventBridge rule instance setting allow for only one instance can be run at one time.
+
+>> There are two major portions for the setup and deployment of the Control Tower with vSRX sollution. First section is the head-end or the Security Infrastructure VPC. The Second portion is the remote or the child Organizational Units.  Please revew the workflow here for a visual discription. [./img/WorkFlow.png]().
+
+>> Head-end Security Infrastructure VPC
+>> For the head-end portion, the AWS CloudFormation Create Stactset will be used. S
+
 ##### Related and Suporting links
->> WIP
+>> [https://www.juniper.net/us/en/solutions/next-gen-firewall.html]()
+>>[https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html]()
+
 ##### Current and known issues
->> WIP
+>> [./KNOWN.md]()
