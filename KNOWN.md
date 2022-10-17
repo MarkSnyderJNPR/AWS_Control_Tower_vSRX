@@ -1,22 +1,31 @@
 # Known issues and limitations
 
-Summary: This is a list of known issues and limiations with the integrations here.  This list is not a complete nor exhusting list but issues that are known at the time of writing
-## Setup
-For HSST1 you will want to change your cidr for access. It curently allows any address ssh
-You will want to create your preshared keys and advance and  updaet the key name.
+Summary: This is a list of known issues and limitations with the integrations here.  This list is not a complete nor exhausting list but issues that are known at the time of writing
 
+## 1. vSRX - Network Interfaces
+The vSRX will need to be rebooted after initial start in order for the vSRX to see the additional interfaces added by the CloudFormation templates.
 
-## 1. Security Groups, Route tables, Transit Gateways
-Not all security groups are mapped to Network segments correctly. At the moment, only the last security group (SECG2) is configured. SECG0, SEC1 and SECG2 ... Same for Route Tables.  The reason for this behavor, the core of the project was an import (copy paste & make work and continue) from another project that I was working on.  the Transit gateway is only conected to the last network segment for each Org VPC 10.vpc.192.0/24.
+## 2. Setup
+For HSST1 you will want to change your CIDR for access. It currently allows any address ssh
+You will want to create your preshared keys and advance and  update the key name.
 
-## 1. One Central Security VPC
-There is only one central security VPC for the momont. Future plan may include TAGs that can be reviewed to allow more than one Central VPC.
+## 3. Security Groups, Route tables, Transit Gateways
+Not all security groups are mapped to Network segments correctly. At the moment, only the last security group (SECG2) is configured. SECG0, SEC1 and SECG2 ... Same for Route Tables.  The reason for this behavior, the core of the project was an import (copy paste & make work and continue) from another project that I was working on.  the Transit gateway is only connected to the last network segment for each Org VPC 10.VPC.192.0/24.
 
-## 2. Moving of accounts
-For the moment any account move with trigger Envent Bridge and WILL delete the default VPC for that account!!!!!
+## 4. One Central Security VPC
+There is only one central security VPC for the moment. Future plan may include Tags that can be reviewed to allow more than one Central VPC.
 
-## 3. ReRegister
-For the moment the reregistration for any OU will triger the event bridage and will create a stake set and address group.  Testing need to happen to determine what happens to an exist OU, if reregisterd.  A check tag if exist needs to be written.
+## 5. Moving of accounts
+For the moment any account move with trigger EnventBridge and WILL delete the default VPC for that account!!!!!
 
-## 4. Updating Landing Zones
-Updating lanading zone maty trigger Event bridge
+## 6. Re-register
+For the moment the reregistration for any OU will trigger the EventBridge and will create a stack set and address group.  Testing need to happen to determine what happens to an exist OU, if re-registered.  A check tag if exist needs to be written.
+
+## 7. Updating Landing Zones
+Updating landing zone may trigger Event bridge
+
+## 8. Market Place vSRX image
+Is currently hard coded to PAYG for the us-east-1 region
+
+## 9. AWS region
+Currently hard coded to us-east-1.  Should be noted that AWS Control Tower, is not offered in all AWS regions.

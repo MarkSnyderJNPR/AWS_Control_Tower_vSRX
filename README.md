@@ -15,7 +15,7 @@
 
 ##### Expected architectural design principles
 > ###### Security Infrastructure VPC
-  >>To provide a security VPC infrastructure were all other AWS account's Organizational units traverse through a specified security VPC. THe security infrastructure VPC acts as a head-end egress and ingress point for all traffic coming into AWS.  Traffic is forced through the SRX firewall.  All traditional firewall features can be used to inspect, secure and enforce traffic.  This includes typical, traffic filtering rules, IPS, URL-filtering, traffic inspection, in addition to advance features such as Juniper's encrypted traffic analysis, threat intelligence and protection services.
+  >>To provide a security VPC infrastructure were all other AWS account's Organizational units traverse through a specified security VPC. The security infrastructure VPC acts as a head-end egress and ingress point for all traffic coming into AWS.  Traffic is forced through the SRX firewall.  All traditional firewall features can be used to inspect, secure and enforce traffic.  This includes typical, traffic filtering rules, IPS, URL-filtering, traffic inspection, in addition to advance features such as Juniper's encrypted traffic analysis, threat intelligence and protection services.
   >>> ##### Security Infrastructure VPC - Network segments
   >>>> Four Network Segments are created. Public Internet Segment is used for all Public egress and ingress traffic. Management for Juniper SRX management, and two private segments, east and west.  The public subnet is directly publicly facing and should be considered an insecure segment. The default configuration, is to allow all established session out. This may need to be adjusted on organizational designs. The management subnets, AWS security groups default is to allow any ssh public access. Which can be edited at time of initial deployment.  East and west subnets are for Transit Gateway connectivity, and for future other expansion considerations. Expansions can include, zone segmentation (levels of security) or for third party and appliance integrations
   >>> ##### Scaling, and High Availability
@@ -50,35 +50,39 @@
 ![](./img/WorkFlow.png)
 
 ##### Deployment, Setup and Installation
->> ##### Compononets Used
->> Juniper Networks vSRX from the AWS Market Place, AWS Control Tower, Organizations. Clouformation, Lambda, EventBridge, Systems Prarmeter Store, S3 and Resource Access Maanger are used for this solution.  AWS Control Tower AccountFactory or Organization can be used for creaating Accounts and for Organizations.
+>> ##### Components Used
+>> Juniper Networks vSRX from the AWS Market Place, AWS Control Tower, Organizations. CloudFormation, Lambda, EventBridge, Systems Parameter Store, S3 and Resource Access Manager are used for this solution.  AWS Control Tower Account-factory or Organization can be used for creating Accounts and for Organizations.
 
 >> ##### Market Place Subscriptions
->> An AWS Market Place subscription for the Juniper vSRX is required for this sollution. Both BYOL, or PAYG will be  needed. It is recomended to use the latest vSRX version.
+>> An AWS Market Place subscription for the Juniper vSRX is required for this solution. Both BYOL, or PAYG will be  needed. It is recommended to use the latest vSRX version.
 
->> ##### Prerequisit setup and settings
->> AWS Control Tower must have been previously deployed with the AWS IAM roles, Control Tower and CloudFormation, Excucution and adminstration must be deployed for all Organizations manged by Control Tower.  [https://docs.aws.amazon.com/controltower/latest/userguide/deployment.html]()
+>> ##### Prerequisite setup and settings
+>>> AWS Control Tower must have been previously deployed with the AWS IAM roles, Control Tower and CloudFormation, Execution and administration must be deployed for all Organizations manged by Control Tower.  [https://docs.aws.amazon.com/control tower/latest/user guide/deployment.html]()
 
->> S3 - Simple Storage Service
->>> An S3 bucket must be created for the storing of Cloud Formation Templates. AWS Lambda will refer to these scripts for deployment.
+>>> S3 - Simple Storage Service
+>>>> An S3 bucket must be created for the storing of Cloud Formation Templates. AWS Lambda will refer to these scripts for deployment.
 
->> IAM - Identity and Access Management
->>> An IAM role for lambda will need to be created. The lambda role will need to have access to the S3 bucket were CloudFormation templates are stored and the ability to deploy cloudformation templates.
->>> This solution, addtionaly creates an IAM role in each child Organization account. This role is created for the deletetion of the default VPC and Internet Gateway and all the dependancies. This role can be deleted after the child OU is creaated. However, can be used for later adminstration uses and fine tunning.
+>>> IAM - Identity and Access Management
+>>>> An administration account will be needed that is NOT the root account. This account should have execution privileges needed to deploy Control Tower, CloudFormation templates, Lambda, S3, and IAM roles
 
->> Lambda - functions
->>> Two lambda functions need to be created. One for Organization registrataions, and another for account move and regitrastion.
->>> The Organization Lambda function, lambda_main.py, is responsible for the core infrastucture and all address management for child organizational units. This lambda function must be called by the Organization registration EventBridge. It should be noted that Organization unit can either be created with Control Tower or within Organizations and then registered in Control Tower.
->>> The second Lambda script, ddvpc_function.py, is responsible for the deletion on the default VPC and Internet Gateway. This function is called from one of two EventBridge ruels. Either when a new account is created in Account Factory, or if the accountis created in organizations and the account is moved.
->>>> #### Extreme caution
->>>> Extreme caution needs to be practiced for ddvpc_function.py and when it is called. Currenty, there are NO checks for "if" the account being moved, is in an account that is within a child organizational unit under the Security Infrastuture VPC.  This check is planed for future releases. There are currently no tags in organizans to check and needs coding to determine, parent Organization, child Organizational Unit, and "managed" account relationships...
+>>>> An IAM role for lambda will need to be created. The lambda role will need to have access to the S3 bucket were CloudFormation templates are stored and the ability to deploy cloud formation templates.
 
->>>Lambda functions must ensure all timeouts are at least 10 minutes or scipts "may" fail to complete.
+>>>> This solution, additionally creates an IAM role in each child Organization account. This role is created for the deletion of the default VPC and Internet Gateway and all the dependencies. This role can be deleted after the child OU is created. However, can be used for later administration uses and fine tuning.
 
->> EventBridge
->>> Three EventBridge rules need to be created. Each rule trigers lambda functions specific to organizational unit registration in Control Tower, AWS Account creation within Account Factory, or an accoun that was created within Organizations, and moved into a child Organizational Unit.  It should be noted, that technically this account is not "really" managed by Control Tower.
 
->>>  EventBridge Organizational Unit Registration triger
+>>> Lambda - functions
+>>>> Two lambda functions need to be created. One for Organization registration, and another for account move and registration.
+>>>> The Organization Lambda function, lambda_main.py, is responsible for the core infrastructure and all address management for child organizational units. This lambda function must be called by the Organization registration EventBridge. It should be noted that Organization unit can either be created with Control Tower or within Organizations and then registered in Control Tower.
+>>>> The second Lambda script, ddvpc_function.py, is responsible for the deletion on the default VPC and Internet Gateway. This function is called from one of two EventBridge rules. Either when a new account is created in Account Factory, or if the accounts created in organizations and the account is moved.
+>>>>> #### Extreme caution
+>>>>> Extreme caution needs to be practiced for ddvpc_function.py and when it is called. Currently, there are NO checks for "if" the account being moved, is in an account that is within a child organizational unit under the Security Infrastructure VPC.  This check is planed for future releases. There are currently no tags in organizations to check and needs coding to determine, parent Organization, child Organizational Unit, and "managed" account relationships...
+
+>>>Lambda functions must ensure all timeouts are at least 15 minutes or scripts "may" fail to complete.
+
+>>> EventBridge
+>>>> Three EventBridge rules need to be created. Each rule triggers lambda functions specific to organizational unit registration in Control Tower, AWS Account creation within Account Factory, or an account that was created within Organizations, and moved into a child Organizational Unit.  It should be noted, that technically this account is not "really" managed by Control Tower.
+
+>>>>  EventBridge Organizational Unit Registration trigger
 ```
 {
   "source": ["aws.controltower"],
@@ -88,7 +92,7 @@
   }
 }
 ```
->>> EventBridge Organization account created and moved triger
+>>>> EventBridge Organization account created and moved trigger
 ```
 {
   "source": ["aws.organizations"],
@@ -99,7 +103,7 @@
   }
 }
 ```
->>> EventBridge Account Factory / Control Tower account creaton
+>>>> EventBridge Account Factory / Control Tower account creation trigger
 ```
 {
   "source": ["aws.controltower"],
@@ -110,16 +114,74 @@
 }
 ```
 
->>>Currently, it is recomended that the EventBridge rule instance setting allow for only one instance can be run at one time.
+>>> SSH Key-pair
+>>>> Create an SSH key-pair to be used for remote administration of the vSRX after deployment. Creating user key-pairs, or using AWS hardware key management is supported by the vSRX, and can be used my modifying vSRX resource section of hsst1.json CloudFormation template.
 
->> There are two major portions for the setup and deployment of the Control Tower with vSRX sollution. First section is the head-end or the Security Infrastructure VPC. The Second portion is the remote or the child Organizational Units.  Please revew the workflow here for a visual discription. [./img/WorkFlow.png]().
+>>> Organization Unit for the Security Infrastructure
+>>>> An Organization unit will need to be created as the Security Infrastructure that is a child of the root account of "your" organization/company/identity. The identity of the Organization Unit should have an ID that begins with "OU-" and NOT "r-" or "o".  This new organization will have all traffic from child Organizational Units "ou-" flow through this new OU. Make note of the OU ID created. For example ou-ad12-a1b2b3b4.
 
->> Head-end Security Infrastructure VPC
->> For the head-end portion, the AWS CloudFormation Create Stactset will be used. S
+>>> Owner account for Security Infrastructure OU
+>>>> The owner account with be a new AWS account used specifically as the owner for all related account functions for the OU. Make note of the 12 digit ID of the account created.  This will be used as part of the deployment.
 
-##### Related and Suporting links
->> [https://www.juniper.net/us/en/solutions/next-gen-firewall.html]()
->>[https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html]()
+>>> Control Tower - Service Control polices
+>>>> WIP
+
+>>> Control Tower - Guard Rails
+>>>> WIP
+
+##### General Deployment
+>> After all prerequisites are completed. Initial Security Infrastructure VPC can be deployed. The security VPC is created by deploying two CloudFormation templates. HSST1 and HSST2. Head-end Stackset Security Template 1 and 2.
+
+>> ###### hsst1  Head-end Security Infrastructure VPC
+
+>> Ensure that the account that is being used for the next steps are being performed from a top organization account and is "NOT" the root account. Additionally this step "IS" performed at the root organization AND NOT at Security Infrastructure OU created from the prerequisites.
+
+>>Using AWS CloudFormation, ensure that Stacksets is selected and select "create StackSet" create a new Create Stactset. Leave the default setting and use the hsst1.json template. Fill the fields similar to the fields here, changing you IP address for remote SSH management, the 12 digit account and the name of your key-pair created in the prerequisites.
+
+![](./img/inst/cftss.png)
+
+>> Select next until you get to the following screen. Make sure to change "Deploy to organization units(OUs)" with the OU ID created earlier. Additionally, specify the region to US East (N.Virginia)
+
+![](./img/inst/cftss2.png)
+
+>> Click Submit
+>> Wait at least 3 minutes until the stackset Operations shows a Status as SUCCEEDED as shown here.
+
+![](./img/inst/ssresults.png)
+
+
+
+>> ###### hsst2  Head-end Security Infrastructure VPC
+>> For hsst2, leave the default parameters section as is.  These are Parameters are being pulled from System Manager Parameters and were generated from the previous step. Select next until you get to the deployment targets page.  AS in the previous step, ensure to change "Deploy to organization units(OUs)" with the OU ID created earlier. Additionally, specify the region to US East (N.Virginia). click next until submit and enter submit.
+
+>> Check the status of the StackSet to ensure it was successful.
+
+>> ###### vSRX instance
+>> Prior to traffic getting routed through the vSRX. The vSRX will need to be rebooted. Please stop and restart the vSRX prior to the next steps.
+
+>> ###### General Use - Use the solution
+>> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC.
+
+>>> ###### Creating new child Organizational Units
+>>>> WIP
+
+>>> ###### Creating new accounts for the new child Organizational Units
+>>>> WIP
 
 ##### Current and known issues
 >> [./KNOWN.md]()
+
+##### Release information
+
+>>All code, templates and other files in this repository are released on an “AS IS” BASIS, WITHOUT WARRANTIES, CONDITIONS, OR SUPPORT OBLIGATIONS OF ANY KIND, EXPRESS OR IMPLIED.
+
+##### Related and Supporting links
+>> [https://www.juniper.net/us/en/solutions/next-gen-firewall.html]()
+>>[https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html]()
+
+
+#### Author
+>> Mark Snyder
+>> Juniper Networks
+>> msnyder@juniper.net
+>> [https://linkedin.com/in/m-msnyder]()
