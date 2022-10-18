@@ -123,7 +123,7 @@
 >>> Owner account for Security Infrastructure OU
 >>>> The owner account with be a new AWS account used specifically as the owner for all related account functions for the OU. Make note of the 12 digit ID of the account created.  This will be used as part of the deployment.
 
->>> AWS Organizations  - Service Control polices (SCP), Controls and Guard -Rails
+>>> AWS Organizations  - Service Control polices (SCP), Controls and Guardrails
 >>>> Are defined, configured and set within the Orgaizations dashboard under the polices menu and Control Tower, controls. Examples of the setting are set here.
 
 >>>>![](./img/inst/scp1.png)
@@ -162,7 +162,7 @@
 >> Prior to traffic getting routed through the vSRX. The vSRX will need to be rebooted. Please stop and restart the vSRX prior to the next steps.
 
 >> ###### General Use - Using the solution The Day-to-Day use
->> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC. All AWS Security Control Policies that were created and Guard Rails as applied to the child Organizations.
+>> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC. All AWS Security Control Policies that were created and Guardrails as applied to the child Organizations.
 
 >>Ensure that the account that is being used for the next steps are being performed from a top organization account and is "NOT" the root account. Additionally this step "IS" performed at the root organization AND NOT at Security Infrastructure OU created from the prerequisites.
 
