@@ -200,7 +200,7 @@
 
 >>>>![](./img/inst/oaddorg3.png)
 
->>>> From both method above, the child organizational unit is registered with Control Tower.
+>>>> From both methods above, the child organizational unit is registered with Control Tower.
 >>>>![](./img/inst/oaddorg4.png)
 
 >>> ###### Creating new accounts for the new child Organizational Units
