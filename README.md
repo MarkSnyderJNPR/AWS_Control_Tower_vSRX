@@ -173,7 +173,7 @@
 
 >>>>![](./img/inst/ctorgadd.png)
 
->>>> In the add an OU screen add the name of teh new child OU and ensure that the Parent OU is the Security infrastructure OU.
+>>>> In the add an OU screen add the name of the new child OU and ensure that the Parent OU is the Security infrastructure OU.
 
 >>>>![](./img/inst/ctorgadd2.png)
 
@@ -188,7 +188,7 @@
 >>>> ###### Method 2 - Using Organizations to create the child OU
 >>>> For creating child Organizational units using organization
 
->>>> Check the box next to the Parent OU of the Security Infrastructure OU. and from the Action menu > under Organization unit, select Creet new.
+>>>> Check the box next to the Parent OU of the Security Infrastructure OU. and from the Action menu > under Organization unit, select Create new.
 >>>>![](./img/inst/oaddorg.png)
 
 >>>> Enter the new child Organizational unit, and select Create organizational unit.
@@ -208,15 +208,15 @@
 
 >>>> ###### Method 1 - Using Control Tower's Account factory to create an account
 
->>>> From the Control Tower dashboard. Either select Organizations and create resoure, Create account.
+>>>> From the Control Tower dashboard. Either select Organizations and create resource, Create account.
 
 >>>>>![](./img/inst/afaddaa.png)
 
->>>> Fill out the account information, ensureing that the new created child OU is sellected under the Organizational unit section. Create account.
+>>>> Fill out the account information, ensuring that the new created child OU is selected under the Organizational unit section. Create account.
 
 >>>>>![](./img/inst/afadd.png)
 
->>>> Here you wil lsee that the account is now enrolled within Control Tower.
+>>>> Here you will see that the account is now enrolled within Control Tower.
 
 >>>> ###### Method 2 - Using Control Tower's Account factory to create an account
 
@@ -224,7 +224,7 @@
 
 >>>>![](./img/inst/oadda.png)
 
->>>> From the add AWS account, slect Create an AWS Account and add a valid email address.  Please note, that a valid emial address should be used. This account can only be deleted with a valid email. Once completed click Create AWS account. This new account will be located in the root Organization.
+>>>> From the add AWS account, select Create an AWS Account and add a valid email address.  Please note, that a valid email address should be used. This account can only be deleted with a valid email. Once completed click Create AWS account. This new account will be located in the root Organization.
 
 >>>>![](./img/inst/oadda2.png)
 
@@ -232,15 +232,19 @@
 
 >>>>![](./img/inst/oadda3.png)
 
->>>> Ensure to select the new child OU previously created for the destiniation.
+>>>> Ensure to select the new child OU previously created for the destination.
 
 >>>>![](./img/inst/oadda4.png)
 
 >>>>  ##### The final results
 
->>>>  The final results should look similial to the results underneath for both the OU creation and the account creation. In the example underneath. The Security Infrastruture OU is FORG, and sub1, sub2 and sub3 are child OU's where their traffic traverses through the vSRX within the Security Infrastrute Organization.
+>>>>  The final results should look similar to the results underneath for both the OU creation and the account creation. In the example underneath. The Security Infrastructure OU is FORG, and sub1, sub2 and sub3 are child OU's where all child Organization's traffic traverses through the vSRX within the Security Infrastructure Organization.
+
+>>>> ##### AWS Organizations - Should look like the following
 
 >>>>![](./img/inst/ofr1.png)
+
+>>>> ##### Control Tower - Should look like the following
 
 >>>>![](./img/inst/ctfr1.png)
 
@@ -249,7 +253,7 @@
 >>> ##### Troubleshooting
 
 >>>> ###### Deployment and Use
->>>>Ensure that durring deployment that you are ussing a non root account and are in the root Organization.  Ensure that all prerequisites steps are followed.   For any Stackset failures, review the information provided by cloudformation under the operations section. Further details can be found in the underlying stacks at the Security Infrastrute OU. Almost all errors are due to IAM roles or IAM access issues. Check cloudwatch logs. There are two seperate logs, one for organizations and the other for accounts. Expand the logs to detial the details.  Most likely, it will be IAM role or rights issue. The logs wil be the same name of the lambda function name sthat you created.
+>>>>Ensure that during deployment that you are using a non root account and are in the root Organization.  Ensure that all prerequisites steps are followed.   For any Stackset failures, review the information provided by CloudFormation under the operations section. Further details can be found in the underlying stacks at the Security Infrastructure OU. Almost all errors are due to IAM roles or IAM access issues. Check cloudwatch logs. There are two separate logs, one for organizations and the other for accounts. Expand the logs to detail the details.  Most likely, it will be IAM role or rights issue. The logs will be the same name of the lambda function name that you created.
 
 
 
