@@ -171,7 +171,7 @@
 
 >>>> Create a new organization, from the Create resources "Create organization unit".
 
->>>>![](./img/inst/ctorgadd.png)
+>>>>![](./img/inst/ctorgadd.png) 
 
 >>>> In the add an OU screen add the name of the new child OU and ensure that the Parent OU is the Security infrastructure OU.
 
