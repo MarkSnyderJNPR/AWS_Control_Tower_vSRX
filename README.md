@@ -218,6 +218,7 @@
 ##### Related and Supporting links
 >> [https://www.juniper.net/us/en/solutions/next-gen-firewall.html]()
 >>[https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html]()
+
 >> YouTube video - WIP
 
 #### Author
