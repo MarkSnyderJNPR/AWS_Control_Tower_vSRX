@@ -160,13 +160,53 @@
 >> Prior to traffic getting routed through the vSRX. The vSRX will need to be rebooted. Please stop and restart the vSRX prior to the next steps.
 
 >> ###### General Use - Use the solution
->> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC.
+>> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC. All AWS Security Control Policies that were created and Guard Rails as applied to the child Organizations.
+
+>>Ensure that the account that is being used for the next steps are being performed from a top organization account and is "NOT" the root account. Additionally this step "IS" performed at the root organization AND NOT at Security Infrastructure OU created from the prerequisites.
 
 >>> ###### Creating new child Organizational Units
->>>> WIP
+>>>> From either Organizations or from Control Tower, create a new Child Organization. In the example underneath, the Security Infrastructure VPC, is the organization "FORG" and any child organizational unit, are children who's traffic will flow through the Security VPC. The child OUs are sub1,sub2 and sub3 as examples.
+>>>> ###### Using Control Tower to create the child OU
+>>>> For creating child Organizational units using Control Tower
+
+>>>> Create a new organization, from the Create resources "Create organization unit".
+
+>>>>![](./img/inst/ctorgadd.png)
+
+>>>> In the add an OU screen add the name of teh new child OU and ensure that the Parent OU is the Security infrastructure OU.
+
+>>>>![](./img/inst/ctorgadd2.png)
+
+>>>> In the screen capture underneath, the organizational unit is being created.
+
+>>>>![](./img/inst/ctorgadd3.png)
+
+>>>> Once completed, you will find the completed registered sub2 child OU.
+
+>>>>![](./img/inst/ctorgadd4.png)
+
+>>>> ###### Ussing Organizations to create the child OU
+>>>> For creating child Organizational units using organization
+
+>>>> Check the box next to the Parent OU of the Security Infrastructure OU. and from the Action menu > under Organization unit, select Creet new.
+>>>>![](./img/inst/oaddorg.png)
+
+>>>> Enter the new child Organizational unit, and select Create organizational unit.
+
+>>>>![](./img/inst/oaddorg2.png)
+
+>>>> Now that the OU is created it needs to be registered in Control Tower.
+>>>> from the Control Tower screen, select the OU , just created. from the action menu, select register OU. You will need to accept the terms and conditions.
+
+>>>>![](./img/inst/oaddorg3.png)
+
+>>>> From both method above, the child organizational unit is registered with Control Tower.
+>>>>![](./img/inst/oaddorg4.png)
 
 >>> ###### Creating new accounts for the new child Organizational Units
 >>>> WIP
+
+
 
 ##### Current and known issues
 >> [./KNOWN.md]()
@@ -178,7 +218,7 @@
 ##### Related and Supporting links
 >> [https://www.juniper.net/us/en/solutions/next-gen-firewall.html]()
 >>[https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html]()
-
+>> YouTube video - WIP
 
 #### Author
 >> Mark Snyder
