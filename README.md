@@ -123,13 +123,11 @@
 >>> Owner account for Security Infrastructure OU
 >>>> The owner account with be a new AWS account used specifically as the owner for all related account functions for the OU. Make note of the 12 digit ID of the account created.  This will be used as part of the deployment.
 
->>> AWS Organizations  - Service Control polices (SCP), Controls and Guardrails
->>>> Are defined, configured and set within the Orgaizations dashboard under the polices menu and Control Tower, controls. Examples of the setting are set here.
+>>> Control Tower - Service Control polices
+>>>> WIP
 
->>>>![](./img/inst/scp1.png)
-
->>>>![](./img/inst/ctgr1.png)
-
+>>> Control Tower - Guard Rails
+>>>> WIP
 
 ##### General Deployment
 >> After all prerequisites are completed. Initial Security Infrastructure VPC can be deployed. The security VPC is created by deploying two CloudFormation templates. HSST1 and HSST2. Head-end Stackset Security Template 1 and 2.
@@ -161,20 +159,14 @@
 >> ###### vSRX instance
 >> Prior to traffic getting routed through the vSRX. The vSRX will need to be rebooted. Please stop and restart the vSRX prior to the next steps.
 
-<<<<<<< HEAD
 >> ###### General Use - Using the solution The Day-to-Day use
->> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC. All AWS Security Control Policies that were created and Guardrails as applied to the child Organizations.
-=======
->> ###### General Use - Use the solution
-<<<<<<< HEAD
 >> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC. All AWS Security Control Policies that were created and Guard Rails as applied to the child Organizations.
->>>>>>> parent of 6ace529 (Doc edits)
 
 >>Ensure that the account that is being used for the next steps are being performed from a top organization account and is "NOT" the root account. Additionally this step "IS" performed at the root organization AND NOT at Security Infrastructure OU created from the prerequisites.
 
 >>> ###### Creating new child Organizational Units
->>>> From either Organizations or from Control Tower, create a new Child Organization. In the example underneath, the Security Infrastructure VPC, is the organization "FORG" and any child organizational unit, are children who's traffic will flow through the Security VPC. The child OUs are sub1,sub2 and sub3 as examples.
->>>> ###### Using Control Tower to create the child OU
+>>>> There are two methods for creating Organizational Units. From either Organizations or from Control Tower. In the example underneath, the Security Infrastructure VPC, is the organization "FORG" and any child organizational unit, are children who's traffic will flow through the Security VPC. The child OUs are sub1,sub2 and sub3 as examples.
+>>>> ###### Method 1 - Using Control Tower to create the child OU
 >>>> For creating child Organizational units using Control Tower
 
 >>>> Create a new organization, from the Create resources "Create organization unit".
@@ -193,7 +185,7 @@
 
 >>>>![](./img/inst/ctorgadd4.png)
 
->>>> ###### Ussing Organizations to create the child OU
+>>>> ###### Method 2 - Using Organizations to create the child OU
 >>>> For creating child Organizational units using organization
 
 >>>> Check the box next to the Parent OU of the Security Infrastructure OU. and from the Action menu > under Organization unit, select Create new.
@@ -210,15 +202,8 @@
 
 >>>> From both methods above, the child organizational unit is registered with Control Tower.
 >>>>![](./img/inst/oaddorg4.png)
-=======
->> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC.
-
->>> ###### Creating new child Organizational Units
->>>> WIP
->>>>>>> parent of fc84223 (Added documentation)
 
 >>> ###### Creating new accounts for the new child Organizational Units
-<<<<<<< HEAD
 >>>> Accounts can be created with two methods, either from Control Tower's Account factory, or through AWS Organizations.
 
 >>>> ###### Method 1 - Using Control Tower's Account factory to create an account
@@ -269,17 +254,8 @@
 
 >>>> ###### Deployment and Use
 >>>>Ensure that during deployment that you are using a non root account and are in the root Organization.  Ensure that all prerequisites steps are followed.   For any Stackset failures, review the information provided by CloudFormation under the operations section. Further details can be found in the underlying stacks at the Security Infrastructure OU. Almost all errors are due to IAM roles or IAM access issues. Check cloudwatch logs. There are two separate logs, one for organizations and the other for accounts. Expand the logs to detail the details.  Most likely, it will be IAM role or rights issue. The logs will be the same name of the lambda function name that you created.
-=======
->>>> WIP
-
-<<<<<<< HEAD
->>>>>>> parent of 6ace529 (Doc edits)
 
 
-=======
->>>>>>> parent of fc84223 (Added documentation)
-##### Current and known issues
->> [./KNOWN.md]()
 
 ##### Release information
 
@@ -289,10 +265,7 @@
 >> [https://www.juniper.net/us/en/solutions/next-gen-firewall.html]()
 >>[https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html]()
 
-<<<<<<< HEAD
 >> YouTube video - WIP
-=======
->>>>>>> parent of fc84223 (Added documentation)
 
 #### Author
 >> Mark Snyder
