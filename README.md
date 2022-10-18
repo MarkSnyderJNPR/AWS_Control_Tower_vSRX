@@ -230,6 +230,20 @@
 
 >>>> Move the new account into the created Child OU, from the previous step.
 
+>>>>![](./img/inst/oadda3.png)
+
+>>>> Ensure to select the new child OU previously created for the destiniation.
+
+>>>>![](./img/inst/oadda4.png)
+
+>>>>  ##### The final results
+
+>>>>  The final results should look similial to the results underneath for both the OU creation and the account creation. In the example underneath. The Security Infrastruture OU is FORG, and sub1, sub2 and sub3 are child OU's where their traffic traverses through the vSRX within the Security Infrastrute Organization.
+
+>>>>![](./img/inst/ofr1.png)
+
+>>>>![](./img/inst/ctfr1.png)
+
 
 
 >>> ##### Troubleshooting
