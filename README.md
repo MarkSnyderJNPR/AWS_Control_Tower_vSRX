@@ -1,17 +1,20 @@
 # AWS Control Tower with Juniper Networks vSRX Firewall as Central Security VPC
 
 ##### Summary
-> The AWS Control Tower with vSRX as Central Security VPC solution, provides an automated account, organization, security and governance workflow with a centralized juniper firewall. This solution provides administration team the ease of adding accounts in a AWS multiple account environment, while automatically creating organizational security policies within AWS's infrastructure.
+<p style="margin-left:3%; margin-right:3%;"> The AWS Control Tower with vSRX as Central Security VPC solution, provides an automated account, organization, security and governance workflow with a centralized juniper firewall. This solution provides administration team the ease of adding accounts in a AWS multiple account environment, while automatically creating organizational security policies within AWS's infrastructure.</p>
 
-  >The Next-Generation Firewall (NGFW) has evolved to become the ideal solution for visibility, control, and prevention at the network edge. Threat protection begins with complete visibility into who and what is traversing the network. Combined with behavior and the ability to detect threats in real time, Juniper delivers the most effective NGFW in the industry, reliably safeguarding users, applications, and devices, delivered on-premises, in the cloud, or as a service.
+<p style="margin-left:3%; margin-right:3%;">The Next-Generation Firewall (NGFW) has evolved to become the ideal solution for visibility, control, and prevention at the network edge. Threat protection begins with complete visibility into who and what is traversing the network. Combined with behavior and the ability to detect threats in real time, Juniper delivers the most effective NGFW in the industry, reliably safeguarding users, applications, and devices, delivered on-premises, in the cloud, or as a service.</p>
 
->  AWS Control Tower provides an easy way to set up and govern a secure, multi-account AWS environment with Control Tower's landing zones. It provides AWS Organizations, ongoing account management and governance as well as implementation of AWS's best practices. Architects, system builders and administrators can provision new AWS accounts with a few steps while conforming to your company policies.
+<p style="margin-left:3%; margin-right:3%;">AWS Control Tower provides an easy way to set up and govern a secure, multi-account AWS environment with Control Tower's landing zones. It provides AWS Organizations, ongoing account management and governance as well as implementation of AWS's best practices. Architects, system builders and administrators can provision new AWS accounts with a few steps while conforming to your company policies.</p>
 
->  Combining Juniper's SRX firewalls with AWS Control Tower, extends security and visibility across multiple AWS accounts by creating a centralized security infrastructure VPC. All traffic from newly created AWS accounts are now automatically routed through Juniper's security infrastructure VPC. In addition to foreseeable passing organizational traffic through the central Juniper security VPC, all default VPC networks, IP networks, internet gateways, security groups are removed. This combined solution of Juniper's SRX firewall, AWS Control Tower Organizational service control policies and Guardrails, organizational security polices are enforced reducing overall organization risk.
+<p style="margin-left:3%; margin-right:3%;">Combining Juniper's SRX firewalls with AWS Control Tower, extends security and visibility across multiple AWS accounts by creating a centralized security infrastructure VPC. All traffic from newly created AWS accounts are now automatically routed through Juniper's security infrastructure VPC. In addition to foreseeable passing organizational traffic through the central Juniper security VPC, all default VPC networks, IP networks, internet gateways, security groups are removed. This combined solution of Juniper's SRX firewall, AWS Control Tower Organizational service control policies and Guardrails, organizational security polices are enforced reducing overall organization risk.</p>
 
->  By combining Juniper Networks Security Director management solution, organization can extend their security policy management from AWS cloud, to a multi-cloud, hybrid cloud, private cloud, collocation or evn traditional infrastructure. With Security Director, organizations can now have a single centralized security management source across their entire organization.
+<p style="margin-left:3%; margin-right:3%;">By combining Juniper Networks Security Director management solution, organization can extend their security policy management from AWS cloud, to a multi-cloud, hybrid cloud, private cloud, collocation or evn traditional infrastructure. With Security Director, organizations can now have a single centralized security management source across their entire organization.</p>
 
-![](./img/Arch.png)
+<p align="center">
+<img src="./img/Arch.png" width="1000"/></center>
+</p>
+
 
 ##### Expected architectural design principles
 > ###### Security Infrastructure VPC
@@ -256,14 +259,14 @@
 >>>>Ensure that during deployment that you are using a non root account and are in the root Organization.  Ensure that all prerequisites steps are followed.   For any Stackset failures, review the information provided by CloudFormation under the operations section. Further details can be found in the underlying stacks at the Security Infrastructure OU. Almost all errors are due to IAM roles or IAM access issues. Check cloudwatch logs. There are two separate logs, one for organizations and the other for accounts. Expand the logs to detail the details.  Most likely, it will be IAM role or rights issue. The logs will be the same name of the lambda function name that you created.
 
 
+** Release information **
 
-##### Release information
-
->>All code, templates and other files in this repository are released on an “AS IS” BASIS, WITHOUT WARRANTIES, CONDITIONS, OR SUPPORT OBLIGATIONS OF ANY KIND, EXPRESS OR IMPLIED.
+All code, templates and other files in this repository are released on an “AS IS” BASIS, WITHOUT WARRANTIES, CONDITIONS, OR SUPPORT OBLIGATIONS OF ANY KIND, EXPRESS OR IMPLIED.
 
 ##### Related and Supporting links
->> [https://www.juniper.net/us/en/solutions/next-gen-firewall.html]()
->>[https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html]()
+ >> [ Juniper Networks SRX Firewall    ](https://www.juniper.net/us/en/solutions/next-gen-firewall.html)
+
+>>[More Juniper Networks Github](https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html)
 
 >> YouTube video - WIP
 
