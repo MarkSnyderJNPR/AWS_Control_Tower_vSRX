@@ -9,7 +9,7 @@
 
 >  Combining Juniper's SRX firewalls with AWS Control Tower, extends security and visibility across multiple AWS accounts by creating a centralized security infrastructure VPC. All traffic from newly created AWS accounts are now automatically routed through Juniper's security infrastructure VPC. In addition to foreseeable passing organizational traffic through the central Juniper security VPC, all default VPC networks, IP networks, internet gateways, security groups are removed. This combined solution of Juniper's SRX firewall, AWS Control Tower Organizational service control policies and Guardrails, organizational security polices are enforced reducing overall organization risk.
 
->  By combining Juniper Networks Security Director management solution, organization can extend their security policy management from AWS cloud, to a multi-cloud, hybrid cloud, private cloud, collocation or even traditional infrastructure. With Security Director, organizations can now have a single centralized security management source across their entire organization.
+>  By combining Juniper Networks Security Director management solution, organization can extend their security policy management from AWS cloud, to a multi-cloud, hybrid cloud, private cloud, collocation or evn traditional infrastructure. With Security Director, organizations can now have a single centralized security management source across their entire organization.
 
 ![](./img/Arch.png)
 
@@ -171,19 +171,19 @@
 
 >>>> Create a new organization, from the Create resources "Create organization unit".
 
->>>>![](./img/inst/ctorgadd.png) 
+>>>>![](./img/inst/ctorgadd-1.png)
 
 >>>> In the add an OU screen add the name of the new child OU and ensure that the Parent OU is the Security infrastructure OU.
 
->>>>![](./img/inst/ctorgadd2.png)
+>>>>![](./img/inst/ctorgadd-2.png)
 
 >>>> In the screen capture underneath, the organizational unit is being created.
 
->>>>![](./img/inst/ctorgadd3.png)
+>>>>![](./img/inst/ctorgadd-3.png)
 
 >>>> Once completed, you will find the completed registered sub2 child OU.
 
->>>>![](./img/inst/ctorgadd4.png)
+>>>>![](./img/inst/ctorgadd-4.png)
 
 >>>> ###### Method 2 - Using Organizations to create the child OU
 >>>> For creating child Organizational units using organization
