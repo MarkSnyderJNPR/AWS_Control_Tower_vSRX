@@ -159,14 +159,14 @@
 >> ###### vSRX instance
 >> Prior to traffic getting routed through the vSRX. The vSRX will need to be rebooted. Please stop and restart the vSRX prior to the next steps.
 
->> ###### General Use - Use the solution
+>> ###### General Use - Using the solution The Day-to-Day use
 >> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC. All AWS Security Control Policies that were created and Guard Rails as applied to the child Organizations.
 
 >>Ensure that the account that is being used for the next steps are being performed from a top organization account and is "NOT" the root account. Additionally this step "IS" performed at the root organization AND NOT at Security Infrastructure OU created from the prerequisites.
 
 >>> ###### Creating new child Organizational Units
->>>> From either Organizations or from Control Tower, create a new Child Organization. In the example underneath, the Security Infrastructure VPC, is the organization "FORG" and any child organizational unit, are children who's traffic will flow through the Security VPC. The child OUs are sub1,sub2 and sub3 as examples.
->>>> ###### Using Control Tower to create the child OU
+>>>> There are two methods for creating Organizational Units. From either Organizations or from Control Tower. In the example underneath, the Security Infrastructure VPC, is the organization "FORG" and any child organizational unit, are children who's traffic will flow through the Security VPC. The child OUs are sub1,sub2 and sub3 as examples.
+>>>> ###### Method 1 - Using Control Tower to create the child OU
 >>>> For creating child Organizational units using Control Tower
 
 >>>> Create a new organization, from the Create resources "Create organization unit".
@@ -185,7 +185,7 @@
 
 >>>>![](./img/inst/ctorgadd4.png)
 
->>>> ###### Ussing Organizations to create the child OU
+>>>> ###### Method 2 - Using Organizations to create the child OU
 >>>> For creating child Organizational units using organization
 
 >>>> Check the box next to the Parent OU of the Security Infrastructure OU. and from the Action menu > under Organization unit, select Creet new.
@@ -204,12 +204,40 @@
 >>>>![](./img/inst/oaddorg4.png)
 
 >>> ###### Creating new accounts for the new child Organizational Units
->>>> WIP
+>>>> Accounts can be created with two methods, either from Control Tower's Account factory, or through AWS Organizations.
+
+>>>> ###### Method 1 - Using Control Tower's Account factory to create an account
+
+>>>> From the Control Tower dashboard. Either select Organizations and create resoure, Create account.
+
+>>>>>![](./img/inst/afaddaa.png)
+
+>>>> Fill out the account information, ensureing that the new created child OU is sellected under the Organizational unit section. Create account.
+
+>>>>>![](./img/inst/afadd.png)
+
+>>>> Here you wil lsee that the account is now enrolled within Control Tower.
+
+>>>> ###### Method 2 - Using Control Tower's Account factory to create an account
+
+>>>> From AWS Organizations, click on Add an AWS account.
+
+>>>>![](./img/inst/oadda.png)
+
+>>>> From the add AWS account, slect Create an AWS Account and add a valid email address.  Please note, that a valid emial address should be used. This account can only be deleted with a valid email. Once completed click Create AWS account. This new account will be located in the root Organization.
+
+>>>>![](./img/inst/oadda2.png)
+
+>>>> Move the new account into the created Child OU, from the previous step.
 
 
 
-##### Current and known issues
->> [./KNOWN.md]()
+>>> ##### Troubleshooting
+
+>>>> ###### Deployment and Use
+>>>>Ensure that durring deployment that you are ussing a non root account and are in the root Organization.  Ensure that all prerequisites steps are followed.   For any Stackset failures, review the information provided by cloudformation under the operations section. Further details can be found in the underlying stacks at the Security Infrastrute OU. Almost all errors are due to IAM roles or IAM access issues. Check cloudwatch logs. There are two seperate logs, one for organizations and the other for accounts. Expand the logs to detial the details.  Most likely, it will be IAM role or rights issue. The logs wil be the same name of the lambda function name sthat you created.
+
+
 
 ##### Release information
 
