@@ -123,11 +123,13 @@
 >>> Owner account for Security Infrastructure OU
 >>>> The owner account with be a new AWS account used specifically as the owner for all related account functions for the OU. Make note of the 12 digit ID of the account created.  This will be used as part of the deployment.
 
->>> Control Tower - Service Control polices
->>>> WIP
+>>> AWS Organizations  - Service Control polices (SCP), Controls and Guard -Rails
+>>>> Are defined, configured and set within the Orgaizations dashboard under the polices menu and Control Tower, controls. Examples of the setting are set here.
 
->>> Control Tower - Guard Rails
->>>> WIP
+>>>>![](./img/inst/scp1.png)
+
+>>>>![](./img/inst/ctgr1.png)
+
 
 ##### General Deployment
 >> After all prerequisites are completed. Initial Security Infrastructure VPC can be deployed. The security VPC is created by deploying two CloudFormation templates. HSST1 and HSST2. Head-end Stackset Security Template 1 and 2.
