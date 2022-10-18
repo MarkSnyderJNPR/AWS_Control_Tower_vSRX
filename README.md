@@ -1,4 +1,4 @@
-# AWS Control Tower with vSRX as Central Security VPC
+# AWS Control Tower with Juniper Networks vSRX Firewall as Central Security VPC
 
 ##### Summary
 > The AWS Control Tower with vSRX as Central Security VPC solution, provides an automated account, organization, security and governance workflow with a centralized juniper firewall. This solution provides administration team the ease of adding accounts in a AWS multiple account environment, while automatically creating organizational security policies within AWS's infrastructure.
