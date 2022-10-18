@@ -166,6 +166,7 @@
 >> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC. All AWS Security Control Policies that were created and Guardrails as applied to the child Organizations.
 =======
 >> ###### General Use - Use the solution
+<<<<<<< HEAD
 >> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC. All AWS Security Control Policies that were created and Guard Rails as applied to the child Organizations.
 >>>>>>> parent of 6ace529 (Doc edits)
 
@@ -209,6 +210,12 @@
 
 >>>> From both methods above, the child organizational unit is registered with Control Tower.
 >>>>![](./img/inst/oaddorg4.png)
+=======
+>> With the setup portion and deployment complete.  New child Organizational Units, when created will have all traffic routed back through the Security Infrastructure VPC.
+
+>>> ###### Creating new child Organizational Units
+>>>> WIP
+>>>>>>> parent of fc84223 (Added documentation)
 
 >>> ###### Creating new accounts for the new child Organizational Units
 <<<<<<< HEAD
@@ -265,9 +272,12 @@
 =======
 >>>> WIP
 
+<<<<<<< HEAD
 >>>>>>> parent of 6ace529 (Doc edits)
 
 
+=======
+>>>>>>> parent of fc84223 (Added documentation)
 ##### Current and known issues
 >> [./KNOWN.md]()
 
@@ -279,7 +289,10 @@
 >> [https://www.juniper.net/us/en/solutions/next-gen-firewall.html]()
 >>[https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html]()
 
+<<<<<<< HEAD
 >> YouTube video - WIP
+=======
+>>>>>>> parent of fc84223 (Added documentation)
 
 #### Author
 >> Mark Snyder
