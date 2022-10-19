@@ -204,7 +204,7 @@ WIP
 <br>
 
 <p align="center">
-<img src="./img/inst/cftss.png" width="800"/></center>
+<img src="./img/inst/cftss.png" width="700"/></center>
 </p>
 
  3. Select next until you get to the following screen. Make sure to change "Deploy to organization units(OUs)" with the OU ID created earlier. Additionally, specify the region to US East (N.Virginia)
@@ -454,5 +454,5 @@ YouTube video - WIP
 Juniper Networks <br>
 msnyder@juniper.net  <br>
 
-[https://linkedin.com/in/m-msnyder](https://linkedin.com/in/m-msnyder)
+[https://linkedin.com/in/m-snyder](https://linkedin.com/in/m-snyder)
 </ul>
