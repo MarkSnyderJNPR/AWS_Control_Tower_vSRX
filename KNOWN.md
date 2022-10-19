@@ -16,7 +16,7 @@ Not all security groups are mapped to Network segments correctly. At the moment,
 There is only one central security VPC for the moment. Future plan may include Tags that can be reviewed to allow more than one Central VPC.
 
 ## 5. Moving of accounts
-For the moment any account move with trigger EnventBridge and WILL delete the default VPC for that account!!!!!
+For the moment any account move with trigger EventBridge and WILL delete the default VPC for that account!!!!!
 
 ## 6. Re-register
 For the moment the reregistration for any OU will trigger the EventBridge and will create a stack set and address group.  Testing need to happen to determine what happens to an exist OU, if re-registered.  A check tag if exist needs to be written.
@@ -29,3 +29,6 @@ Is currently hard coded to PAYG for the us-east-1 region
 
 ## 9. AWS region
 Currently hard coded to us-east-1.  Should be noted that AWS Control Tower, is not offered in all AWS regions.
+
+## 10. CIDRs
+There should be 5 cidr class b blocks for each account. 1 block for each available VPC. At this time, there is no plan for integrating AWS IPAM. 

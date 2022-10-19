@@ -188,7 +188,15 @@ The owner account with be a new AWS account used specifically as the owner for a
 
 <h4> Service Control polices (SCP) and Guardrails </h4>
 
-WIP
+For creating, editing and applying polices.   <b>
+
+[AWS Organizations Service Control
+ Policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
+
+  <b>
+
+[AWS Control Tower Guardrails](https://docs.aws.amazon.com/controltower/latest/userguide/guardrails.html)
+
 
 
 <h4> General Deployment </h4>
@@ -247,7 +255,7 @@ Ensure that the account that is being used for the next steps are being performe
 
 <h4> Creating new child Organizational Units </h4>
 
-There are two methods for creating Organizational Units. From either Organizations or from Control Tower. In the example underneath, the Security Infrastructure VPC, is the organization "FORG" and any child organizational unit, are children who's traffic will flow through the Security VPC. The child OUs are sub1,sub2 and sub3 as examples.
+There are two methods for creating Organizational Units, from either the Control Tower or from AWS Organizations dashboards. In the example underneath, the Security Infrastructure VPC, is the organization "FORG" and any child organizational unit, are children who's traffic will flow through the Security VPC. The child OUs are sub1,sub2 and sub3 as examples.
 
 <h4> Method 1 - Using Control Tower to create the child OU </h4>
 
@@ -303,7 +311,7 @@ For creating child Organizational units using organization
 
 
 <p align="center">
-<img src="./img/inst/oaddorg.png" width="1000"/></center>
+<img src="./img/inst/orgaddorg-1.png" width="700"/></center>
 </p>
 
 
@@ -313,7 +321,7 @@ For creating child Organizational units using organization
 
 
 <p align="center">
-<img src="./img/inst/oaddorg2.png" width="1000"/></center>
+<img src="./img/inst/orgaddorg-2.png" width="700"/></center>
 </p>
 
 
@@ -324,14 +332,14 @@ From the Control Tower screen, select the OU , just created. from the action men
 
 
 <p align="center">
-<img src="./img/inst/oaddorg3.png" width="1000"/></center>
+<img src="./img/inst/orgaddorg-3.png" width="700"/></center>
 </p>
 
 
 From both methods above, the child organizational unit is registered with Control Tower.
 
 <p align="center">
-<img src="./img/inst/oaddorg4.png" width="1000"/></center>
+<img src="./img/inst/orgaddorg-4.png" width="1000"/></center>
 </p>
 
 <h4>Creating new accounts for the new child Organizational Units </h4>
@@ -340,15 +348,17 @@ Accounts can be created with two methods, either from Control Tower's Account fa
 
 <h4> Method 1 - Using Control Tower's Account factory to create an account </h4>
 
-1. From the Control Tower dashboard. Either select Organizations and create resource, Create account.
+1. From the Control Tower dashboard, either select Organizations from the left, Create new resource, Create account. Or, Account Factory from the left and Create acccount
 
 <br>
 
 
 <p align="center">
-<img src="./img/inst/afaddaa.png" width="700"/></center>
+<img src="./img/inst/afca1a.png" width="700"/></center>
 </p>
-
+<p align="center">
+<img src="./img/inst/afca1b.png" width="700"/></center>
+</p>
 
 2. Fill out the account information, ensuring that the new created child OU is selected under the Organizational unit section. Create account.
 
@@ -356,7 +366,7 @@ Accounts can be created with two methods, either from Control Tower's Account fa
 
 
 <p align="center">
-<img src="./img/inst/afaddaa.png" width="700"/></center>
+<img src="./img/inst/afca2.png" width="700"/></center>
 </p>
 
 
@@ -369,7 +379,7 @@ Here you will see that the account is now enrolled within Control Tower.
    <br>
 
 <p align="center">
-<img src="./img/inst/oadda.png" width="1000"/></center>
+<img src="./img/inst/orgadda-1.png" width="1000"/></center>
 </p>
 
 
@@ -378,7 +388,7 @@ Here you will see that the account is now enrolled within Control Tower.
    <br>
 
 <p align="center">
-<img src="./img/inst/oadda2.png" width="1000"/></center>
+<img src="./img/inst/orgadda-2.png" width="1000"/></center>
 </p>
 
 
