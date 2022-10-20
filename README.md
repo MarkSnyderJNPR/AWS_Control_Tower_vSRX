@@ -455,7 +455,8 @@ All code, templates and other files in this repository are released on an “AS 
 <ul>
 
 [ Juniper Networks SRX Firewall    ](https://www.juniper.net/us/en/solutions/next-gen-firewall.html)   <br>
-[More Juniper Networks Github](https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html)   <br>
+[Juniper Networks AWS Github](https://github.com/Juniper/vSRX-AWS)   <br>
+[vSRX Deployment Guide for Private and Public Cloud Platforms](https://www.juniper.net/documentation/us/en/software/vsrx/vsrx-consolidated-deployment-guide/vsrx-aws/topics/concept/security-vsrx-aws-overview.html)   <br>
 YouTube video - WIP
 </ul>
 
