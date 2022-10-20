@@ -5,7 +5,7 @@
 
 <ul>
 
-The AWS Control Tower with vSRX as Central Security VPC solution, provides an automated account, organization, security and governance workflow with a centralized juniper firewall. This solution provides administration team the ease of adding accounts in a AWS multiple account environment, while automatically creating organizational security policies within AWS's infrastructure.
+The AWS Control Tower with vSRX as Central Security VPC solution, provides an automated account, organization, security and governance workflow with centralized Juniper Networks firewalls. This solution provides administration teams the ease of adding accounts in a AWS multi-account environment, while automatically creating organizational security, security policies with Next Generation firewall feature capibilities within AWS's infrastructure.
 
 The Next-Generation Firewall (NGFW) has evolved to become the ideal solution for visibility, control, and prevention at the network edge. Threat protection begins with complete visibility into who and what is traversing the network. Combined with behavior and the ability to detect threats in real time, Juniper delivers the most effective NGFW in the industry, reliably safeguarding users, applications, and devices, delivered on-premises, in the cloud, or as a service.
 
