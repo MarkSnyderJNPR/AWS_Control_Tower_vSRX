@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     print(event)
     organizationalUnitId=event['detail']['serviceEventDetails']['registerOrganizationalUnitStatus']['organizationalUnit']['organizationalUnitId']
     organizationalUnitName=event['detail']['serviceEventDetails']['registerOrganizationalUnitStatus']['organizationalUnit']['organizationalUnitName']
-    awsregion=event['detail']['region']
+    awsregion=event['detail']['awsRegion']
     print(' ----- Retrieved organizational registration info for Organizational Unit ', organizationalUnitName, ' with Id', organizationalUnitId, 'For account', recipientAccountId)
     #except:
     #    print('No event data')
