@@ -17,8 +17,9 @@ def lambda_handler(event, context):
     print(event)
     organizationalUnitId=event['detail']['serviceEventDetails']['registerOrganizationalUnitStatus']['organizationalUnit']['organizationalUnitId']
     organizationalUnitName=event['detail']['serviceEventDetails']['registerOrganizationalUnitStatus']['organizationalUnit']['organizationalUnitName']
+    recipientAccountId=event['detail']['serviceEventDetails']
     awsregion=event['detail']['awsRegion']
-    print(' ----- Retrieved organizational registration info for Organizational Unit ', organizationalUnitName, ' with Id', organizationalUnitId, 'For account', recipientAccountId)
+    print(' ----- Retrieved organizational registration info for Organizational Unit ', organizationalUnitName, ' with Id', organizationalUnitId, 'by account', recipientAccountId)
     #except:
     #    print('No event data')
 
@@ -39,9 +40,9 @@ def setargs():
 
 def getJNPRSECVPCAccount(awsregion):
     client = AR2('ssm',awsregion)
-    client.get_parameter(Name='_JNPRSECVPCAccount')
+    client.get_parameter(Name='_SSMJNPRSECVPCAccount')
     response = client.get_parameter(
-        Name='_JNPRSECVPCAccount'
+        Name='_SSMJNPRSECVPCAccount'
         )
     JNPRSECVPCAccount=response['Parameter']['Value']
     return JNPRSECVPCAccount
@@ -162,7 +163,7 @@ def hstackadd(ctime,organizationalUnitId,awsregion):
             PermissionModel='SELF_MANAGED',
             )
     #print('response >>>', response)
-    print('>>>>>>>>>>>>>> region',awsregion,'recipientAccountId', recipientAccountId )
+    print('>>>>>>>>>>>>>> region',awsregion,'JNPRSECVPCAccount', JNPRSECVPCAccount )
     response = client.create_stack_instances(
     StackSetName=args["setname"]+'hstackadd-'+organizationalUnitId+'-'+ctime,
             Accounts=[
@@ -174,7 +175,7 @@ def hstackadd(ctime,organizationalUnitId,awsregion):
     )
 
 def rsst1(ctime, organizationalUnitId, CIDRblocks,awsregion):  #
-    print('#  **Starteding rsst1 deployment')
+    print('#  **Starting rsst1 deployment')
     jnprtgwid=tgwid(awsregion)
     tgwrtbleid=tgwrouteid(awsregion)
     args=setargs()
@@ -256,7 +257,7 @@ def AR(awsregion):
 def AR2(service,awsregion):
     client = boto3.client('sts')
     response = client.assume_role(
-        RoleArn='arn:aws:iam::766484772322:role/AWSCloudFormationStackSetAdministrationRole',
+        RoleArn='arn:aws:iam::766484772322:role/marks-allow-secvpc-toaccess-ssm-parms',
         RoleSessionName='delete-stacksets'
         )
 
@@ -276,7 +277,7 @@ def gettgnetwattid(awsregion):
     jnprtgwid=tgwid(awsregion)
     numberofatt=0
     tgwatachid='mt'
-    client=AR()
+    client=AR(awsregion)
     #client = boto3.client('ec2')
     response = client.describe_transit_gateway_attachments(
     Filters=[
@@ -403,7 +404,7 @@ def addDG4TGW(awsregion):
 
 def main(organizationalUnitId,organizationalUnitName,awsregion):
     ctime=gtime()
-    print('**Starteding deployment at '+ctime )
+    print('**Starting deployment at '+ctime, '>', organizationalUnitId,'>',organizationalUnitName, '>', awsregion )
     hstackadd(ctime,organizationalUnitId,awsregion)
     time.sleep(90)  # needs get status rather than timer
     CIDRblocks=rCIDR()
