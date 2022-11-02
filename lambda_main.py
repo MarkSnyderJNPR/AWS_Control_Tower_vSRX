@@ -13,15 +13,15 @@ import logging
 
 def lambda_handler(event, context):
     print('###############################')
-    #try:
-    print(event)
-    organizationalUnitId=event['detail']['serviceEventDetails']['registerOrganizationalUnitStatus']['organizationalUnit']['organizationalUnitId']
-    organizationalUnitName=event['detail']['serviceEventDetails']['registerOrganizationalUnitStatus']['organizationalUnit']['organizationalUnitName']
-    recipientAccountId=event['detail']['serviceEventDetails']
-    awsregion=event['detail']['awsRegion']
-    print(' ----- Retrieved organizational registration info for Organizational Unit ', organizationalUnitName, ' with Id', organizationalUnitId, 'by account', recipientAccountId)
-    #except:
-    #    print('No event data')
+    try:
+        print(event)
+        organizationalUnitId=event['detail']['serviceEventDetails']['registerOrganizationalUnitStatus']['organizationalUnit']['organizationalUnitId']
+        organizationalUnitName=event['detail']['serviceEventDetails']['registerOrganizationalUnitStatus']['organizationalUnit']['organizationalUnitName']
+        recipientAccountId=event['detail']['serviceEventDetails']
+        awsregion=event['detail']['awsRegion']
+        print(' ----- Retrieved organizational registration info for Organizational Unit ', organizationalUnitName, ' with Id', organizationalUnitId, 'by account', recipientAccountId)
+    except:
+        print('No event data')
 
     print('##############################')
     main(organizationalUnitId,organizationalUnitName,awsregion)
@@ -63,20 +63,14 @@ def tgwid(awsregion):
     client = boto3.client('sts')
     data = client.get_caller_identity()
     print('UserId=',data['UserId'], 'Account=', data['Account'], 'Arn=', data['Arn'] )
-    print('^^^^^^^^^^whoami while in tgi after assume role^^^^^^')
-
     client = boto3.client('ec2',aws_access_key_id=response["Credentials"]['AccessKeyId'], aws_secret_access_key=response["Credentials"]['SecretAccessKey'], aws_session_token=response["Credentials"]['SessionToken'],region_name=awsregion)
-
-    #client = boto3.client('ec2')
     response = client.describe_transit_gateways()
     print('Describe_transit_gateways >>',response)
 
     for TGWs in response['TransitGateways']:
         numberoftgw=numberoftgw+1
-#        print('listitems ', TGWs['TransitGatewayId'], TGWs['State'])
         if TGWs['State'] == 'available':
             for tgwtags in TGWs['Tags']:
-#                print('tgwtags', tgwtags)
                 if tgwtags['Key'] == 'JNPRSECVPClogicalid':
                     if tgwtags['Value'] == '101':
                         tgwid = TGWs['TransitGatewayId']
@@ -101,11 +95,7 @@ def tgwrouteid(awsregion):
     client = boto3.client('sts')
     data = client.get_caller_identity()
     print('UserId=',data['UserId'], 'Account=', data['Account'], 'Arn=', data['Arn'] )
-    print('^^^^^^^^^^whoami while in tgi after assume role^^^^^^')
-
     client = boto3.client('ec2',aws_access_key_id=response["Credentials"]['AccessKeyId'], aws_secret_access_key=response["Credentials"]['SecretAccessKey'], aws_session_token=response["Credentials"]['SessionToken'],region_name=awsregion)
-
-    #client = boto3.client('ec2')
     print('Executing describe tgw route table ID')
     response = client.describe_transit_gateway_route_tables(
             Filters=[
@@ -127,7 +117,6 @@ def tgwrouteid(awsregion):
             return jnprtgwroutetbleid
 
 def hstackadd(ctime,organizationalUnitId,awsregion):
-    #ctime=gtime()
     args=setargs()
     JNPRSECVPCAccount=getJNPRSECVPCAccount(awsregion)
     client = boto3.client('organizations')
@@ -135,19 +124,13 @@ def hstackadd(ctime,organizationalUnitId,awsregion):
     OrganizationalUnitId=organizationalUnitId
     )
 
-    # print('>>>  Get OU info', response)
     arnou=response['OrganizationalUnit']['Arn']
     print('>>>>>>>> ARN for target OU is', arnou, 'Freindly name is', response['OrganizationalUnit']['Name'] )
-
-
     client = boto3.client('cloudformation')
-    #client=AR2('cloudformation')
     response = client.create_stack_set(
         StackSetName=args["setname"]+'hstackadd-'+organizationalUnitId+'-'+ctime,
         Description='testing',
-
             TemplateURL="https://ct-jnpr.s3.amazonaws.com/hstackadd.json",
-
             Parameters=[
                 {
                     'ParameterKey': 'ARNOU',
@@ -162,7 +145,6 @@ def hstackadd(ctime,organizationalUnitId,awsregion):
             ],
             PermissionModel='SELF_MANAGED',
             )
-    #print('response >>>', response)
     print('>>>>>>>>>>>>>> region',awsregion,'JNPRSECVPCAccount', JNPRSECVPCAccount )
     response = client.create_stack_instances(
     StackSetName=args["setname"]+'hstackadd-'+organizationalUnitId+'-'+ctime,
@@ -245,12 +227,9 @@ def AR(awsregion):
         )
     print (response["Credentials"]['AccessKeyId'], response["Credentials"]['SecretAccessKey'], response["Credentials"]['SessionToken'])
     session = boto3.Session(aws_access_key_id=response["Credentials"]['AccessKeyId'], aws_secret_access_key=response["Credentials"]['SecretAccessKey'], aws_session_token=response["Credentials"]['SessionToken'], region_name=awsregion)
-
     client = boto3.client('sts')
     data = client.get_caller_identity()
     print('UserId=',data['UserId'], 'Account=', data['Account'], 'Arn=', data['Arn'] )
-    print('^^^^^^^^^^whoami while in tgi after assume role^^^^^^')
-
     client = boto3.client('ec2',aws_access_key_id=response["Credentials"]['AccessKeyId'], aws_secret_access_key=response["Credentials"]['SecretAccessKey'], aws_session_token=response["Credentials"]['SessionToken'],region_name=awsregion)
     return client
 
@@ -260,9 +239,7 @@ def AR2(service,awsregion):
         RoleArn='arn:aws:iam::766484772322:role/marks-allow-secvpc-toaccess-ssm-parms',
         RoleSessionName='delete-stacksets'
         )
-
     session = boto3.Session(aws_access_key_id=response["Credentials"]['AccessKeyId'], aws_secret_access_key=response["Credentials"]['SecretAccessKey'], aws_session_token=response["Credentials"]['SessionToken'], region_name=awsregion)
-
     client = boto3.client('sts')
     if service=='cloudformation':
         client = boto3.client('cloudformation',aws_access_key_id=response["Credentials"]['AccessKeyId'], aws_secret_access_key=response["Credentials"]['SecretAccessKey'], aws_session_token=response["Credentials"]['SessionToken'],region_name=awsregion)
@@ -278,7 +255,6 @@ def gettgnetwattid(awsregion):
     numberofatt=0
     tgwatachid='mt'
     client=AR(awsregion)
-    #client = boto3.client('ec2')
     response = client.describe_transit_gateway_attachments(
     Filters=[
         {
@@ -289,7 +265,6 @@ def gettgnetwattid(awsregion):
         },
     ],
     )
-    ### very neet well written with tags
     print ('response', response)
     for attachments in response['TransitGatewayAttachments']:
         numberofatt=numberofatt+1
@@ -298,7 +273,6 @@ def gettgnetwattid(awsregion):
         if attachments['State'] == 'available':
             print('>>> Transit Gateway Attackment Id ', attachments['TransitGatewayAttachmentId'])
             for atttags in attachments['Tags']:
-#                print('tgwtags', tgwtags)
                 if atttags['Key'] == 'JNPRSECVPClogicalid':
                     if atttags['Value'] == '101':
                         tgwatachid = attachments['TransitGatewayAttachmentId']
