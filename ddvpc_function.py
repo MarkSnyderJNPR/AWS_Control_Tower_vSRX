@@ -75,7 +75,6 @@ def ddvpc(ACTid):
 
     client = boto3.client('sts')
     response = client.assume_role(
-        #RoleArn=arnnnn,
         RoleArn=arnrole,
         RoleSessionName='Delete_default_vpc'
         )
@@ -122,7 +121,6 @@ def ddvpc(ACTid):
                 if IGWresponse['InternetGateways']:
                     IGWstate='mt'
                     while IGWstate != 'detached':
-                        print('here1')
                         IGWstatestat = client.describe_internet_gateways(
                             Filters=[
                             {
@@ -143,16 +141,13 @@ def ddvpc(ACTid):
 
                         if IGWstatestat['InternetGateways']:
                             time.sleep(2)
-                            print('here2',IGWstatestat['InternetGateways'])
                             for item in IGWstatestat['InternetGateways']:
                                 if item['Attachments']:
-                                    print('here3')
                                     for li in item['Attachments']:
                                         print('Curent state of attachement, checked',lpk,'times',li['State'])
 
                                         IGWstate=li['State']
                                         if li['State'] == 'available':
-                                            print('here4')
                                             IGWidresponse = client.detach_internet_gateway(
                                             InternetGatewayId=InternetGatewayId2delete,
                                             VpcId=vpc2delete
@@ -170,7 +165,6 @@ def ddvpc(ACTid):
                                                 },
                                                 ],
                                                 )
-                                            print('>>>>>>what is going on with gateway deletion ...',whatisgoingonIGWstatestat)
 
                     dIGWresponse = client.delete_internet_gateway(
                     InternetGatewayId=InternetGatewayId2delete
