@@ -218,6 +218,69 @@ def rsst1(ctime, organizationalUnitId, CIDRblocks,awsregion):  #
     )
     print('#  Finished rsst1 deployment')
 
+def rsstd(ctime, organizationalUnitId, CIDRblocks,awsregion):  #
+    print('#  **Starting rsst-d deployment')
+    jnprtgwid=tgwid(awsregion)
+    tgwrtbleid=tgwrouteid(awsregion)
+    args=setargs()
+    client = boto3.client('cloudformation')
+    response = client.create_stack_set(
+        StackSetName=args["setname"]+'rsst-d-'+organizationalUnitId+'-'+ctime,
+        Description='testing',
+            TemplateURL=args["hssturl"]+'rsst-d.json',
+            Parameters=[
+                {
+                    'ParameterKey': 'jnprtgwidremote',
+                    'ParameterValue': jnprtgwid,
+                },
+                {
+                    'ParameterKey': 'CIDR',
+                    'ParameterValue': CIDRblocks[0]+'/16',
+                },
+                {
+                    'ParameterKey': 'CIDRsub0',
+                    'ParameterValue': CIDRblocks[0]+'/24',
+                },
+                {
+                    'ParameterKey': 'CIDRsub1',
+                    'ParameterValue': CIDRblocks[1]+'/24',
+                },
+                {
+                    'ParameterKey': 'CIDRsub2',
+                    'ParameterValue': CIDRblocks[2]+'/24',
+                },
+                {
+                    'ParameterKey': 'CIDRsub3',
+                    'ParameterValue': CIDRblocks[3]+'/24',
+                },
+            ],
+            Capabilities=[
+            'CAPABILITY_IAM','CAPABILITY_NAMED_IAM','CAPABILITY_AUTO_EXPAND',
+            ],
+
+            PermissionModel='SERVICE_MANAGED',
+
+            AutoDeployment={
+            'Enabled': True,
+            'RetainStacksOnAccountRemoval': True
+            }
+    )
+    print('response >>>', response)
+    response = client.create_stack_instances(
+    StackSetName=args["setname"]+'rsst-d-'+organizationalUnitId+'-'+ctime,
+    DeploymentTargets={
+    'OrganizationalUnitIds': [
+    organizationalUnitId,
+    ]
+    },
+
+    Regions=[
+    awsregion,
+    ]
+    )
+    print('#  Finished rsst-d deployment')
+
+
 def AR(awsregion):
     arg=setargs()
     client = boto3.client('sts')
@@ -382,7 +445,8 @@ def main(organizationalUnitId,organizationalUnitName,awsregion):
     hstackadd(ctime,organizationalUnitId,awsregion)
     time.sleep(90)  # needs get status rather than timer
     CIDRblocks=rCIDR()
-    rsst1(ctime, organizationalUnitId, CIDRblocks,awsregion)
+    #rsst1(ctime, organizationalUnitId, CIDRblocks,awsregion)  # centralized model
+    rsstd(ctime, organizationalUnitId, CIDRblocks,awsregion)  # Micro Model
     addDG4TGW(awsregion)
     time.sleep(100) # needs get status rather than timer
     print('###################>>>>>>>>>>>>>>>Ending deployment Bye<<<<<<<<<<<<<<<<<<<<#######################')
